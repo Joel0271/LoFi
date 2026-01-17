@@ -232,13 +232,13 @@ nav a:hover {
 <body>
 <header>
   <div class="social-links">
-    <a href="https://twitter.com/YOUR_ACCOUNT" target="_blank">
+    <a href="https://twitter.com/YOUR_ACCOUNT" target="_blank" id="twitlink">
       <img src="https://www.dropbox.com/scl/fi/gz0qiiyw0qljjcecijhmf/twitrlogo.png?rlkey=htvfk8koghsg79uyvnbe4bpms&st=uf4r4432&raw=1" alt="Twitter">
     </a>
-    <a href="https://instagram.com/YOUR_ACCOUNT" target="_blank">
+    <a href="https://instagram.com/YOUR_ACCOUNT" target="_blank" id="instlink">
       <img src="https://www.dropbox.com/scl/fi/i4zszxmevy9z114614au2/instalogo.png?rlkey=4hulc7ja6dukou2ceex2suwng&st=qjg5tos7&raw=1" alt="Instagram">
     </a>
-    <a href="https://youtube.com/YOUR_ACCOUNT" target="_blank">
+    <a href="https://youtube.com/YOUR_ACCOUNT" target="_blank" id="ytlink">
       <img src="https://www.dropbox.com/scl/fi/m71c4ky7cl7u2q0ip3gsn/OGYTlogo.png?rlkey=ss83g7iejyz7at0ovlwes8fsz&st=0x1gusx6&raw=1" alt="YouTube">
     </a>
   </div>
@@ -291,10 +291,27 @@ mmgEl.addEventListener("click", () => {
   mmgaudio.play().catch(err => {
     console.log("Audio playback failed:", err);
   });
-
   // Optional: add a quick visual feedback
   mmgEl.style.transform = "scale(1.1)";
   setTimeout(() => mmgEl.style.transform = "scale(1)", 150);
+});
+
+const twitterLink = document.getElementById("twitlink");
+twitterLink.addEventListener("click", () => {
+  audio.currentTime = 0;
+  audio.play().catch(err => console.log("Audio playback failed:", err));
+});
+
+const instaLink = document.getElementById("instlink");
+instaLink.addEventListener("click", () => {
+  audio.currentTime = 0;
+  audio.play().catch(err => console.log("Audio playback failed:", err));
+});
+
+const youtubeLink = document.getElementById("ytlink");
+youtubeLink.addEventListener("click", () => {
+  audio.currentTime = 0;
+  audio.play().catch(err => console.log("Audio playback failed:", err));
 });
 
 const els = {
@@ -339,6 +356,7 @@ if (localStorage.getItem("theme") === "light") {
 </script>
 </body>
 </html>
+
 
 
 
