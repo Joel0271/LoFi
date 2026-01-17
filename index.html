@@ -75,16 +75,41 @@ header {
   transform: scale(1.15);
 }
 
+.social-linkss {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 39px;
+  padding-right: 39px;
+}
+
+.social-linkss img {
+  filter: brightness(0) invert(1);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+.social-linkss img:hover {
+  transform: scale(1.15);
+}
+
+.social-tab img {
+  justify-content: space-around;
+  align-items: center;
+  width: 90px;             /* size of each icon */
+  height: auto;            /* keep aspect ratio */
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
 body.light .social-links img {
   filter: brightness(0);
 }
 
-#karent-tab img {
-  width: 60px;
-}
-
-#facebook-tab img {
-  width: 80px;
+body.light .social-linkss img {
+  filter: brightness(0);
 }
 
 nav {
@@ -166,12 +191,26 @@ nav a:hover {
   padding: 20px;
 }
 
-.custom-text {
-  margin-top: 139px;
+.plain-text {
+  margin-top: 39px;
   padding-top: 26px;
   padding-bottom: 26px;
-  margin-bottom: 3px;
+  margin-bottom: 39px;
   font-size: 20px;
+  text-align: center;
+  opacity: 0.9;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.custom-text {
+  margin-top: 69px;
+  padding-top: 26px;
+  padding-bottom: 26px;
+  margin-bottom: 69px;
+  font-size: 26px;
   text-align: center;
   opacity: 0.9;
   cursor: pointer;
@@ -284,17 +323,17 @@ nav a:hover {
 
     <img class="icon" src="https://www.dropbox.com/scl/fi/nq1eq7zjmx08g91uigs0s/mikucalm.png?rlkey=gjhm3r24y9ftkg14pmxtot26g&st=e6fpod8y&raw=1">
 
-    <div class="custom-text">More Official Websites!</div>
+    <div class="plain-text">More Official Websites!</div>
     
-    <div class="social-links">
-      <div class="social-tab" id="karent-tab">
+    <div class="social-linkss">
+      <div class="social-tab">
         <a href="https://karent.jp" target="_blank" id="karent-link">
           <img src="https://www.dropbox.com/scl/fi/fbekpzds1adm9grrdu0sq/karent.png?rlkey=186dzfi0galgcd7wg22bwwwmr&st=lo8kbr7r&raw=1" alt="Karent">
         </a>
       </div>
-      <div class="social-tab" id="facebook-tab">
+      <div class="social-tab">
         <a href="https://facebook.com/pages/Hatsune-Miku/10150149727825637" target="_blank" id="facebook-link">
-          <img src="https://www.dropbox.com/scl/fi/6egg76pe1cc059d0vye1t/fb.png?rlkey=ek02yrf3mku9u3hxrnjnrh4vm&st=52gkogdg&raw=1" alt="FaceBook">
+          <img src="https://www.dropbox.com/scl/fi/gefch54x79tptud2vs1ps/fbfb.png?rlkey=oa2muk52oa1kn6bb5kknzhv36&st=fg82ojia&raw=1" alt="FaceBook">
         </a>
       </div>
     </div>
@@ -379,13 +418,3 @@ if (localStorage.getItem("theme") === "light") {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
