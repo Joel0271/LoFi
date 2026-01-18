@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Orbitron:wght@400..900&display=swap">
+    <title>Neko Nya~</title>
+    <link rel="icon" href="C:/Users/wkchi/Downloads/NekoApostle/steamapps/music/NanoApostle_Soundtrack/NanoApostle_Soundtrack/NanoApostle Soundtrack Cover.png" type="image/x-icon">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+
+	.spectre {
+	    display: flex;
+	    flex-direction: column;
+	    image-rendering: crisp-edges;
+	    justify-content: center;
+	    align-items: center;
+	    left: 50%;
+	    top: 25%;
+	    opacity: 1;
+	    position: absolute;
+	    transform: translate(-50%, -50%);
+	    z-index: 3;
+	}
+
+	.spectrepb {
+	    display: flex;
+	    position: absolute;
+	    flex-direction: column;
+	    justify-content: left;
+	    align-items: left;
+	    width: 729px;
+	    height: 13px;
+	    left: 50%;
+	    top: 87%;
+	    opacity: 1;
+	    transform: translate(-50%, -50%);
+	    z-index: 3;
+	}
+
+        #bgbgbutton {
+            position: absolute;
+            top: 6.8%;
+            left: 95.9%;
+            z-index: 2;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            background-color: #030327;
+            font-size: 6px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+	    opacity: 0;
+	    z-index: 3;
+        }
+
+	#bgbgbutton:hover {
+	    opacity: 0.85;
+	}
+
+        .bgbg-tab {
+            position: absolute;
+            top: 0px;
+            left: 100%;
+            width: 30%;
+            height: 100%;
+            z-index: 3;
+            background-color: rgba(3,3,39,0.5);
+            transition: 0.3s ease-in-out;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+	.pbsrect {
+	    height: 5px;
+	    width: 1px;
+	    background: white;
+	    margin-left: 1px;
+	    z-index: 2;
+	}
+
+	.playbackslider {
+	    width: 720px;
+	    -webkit-appearance: none;
+	    appearance: none;
+	    z-index: 3;
+	    opacity: 0.01;
+	}
+
+	.playbackslider::-webkit-slider-thumb {
+	    -webkit-appearance: none;
+	    appearance: none;
+	    width: 20px;
+	    height: 20px;
+	}
+
+	.playbackslider::-webkit-slider-runnable-track {
+	    height: 5px;
+	    -webkit-appearance: none;
+	}
+
+	.bgbg-tab::-webkit-scrollbar {
+  	    display: none;
+	}
+
+	.mediaTab::-webkit-scrollbar {
+  	    display: none;
+	}
+
+	.audiocolumn::-webkit-scrollbar {
+  	    display: none;
+	}
+
+	.settingUI::-webkit-scrollbar {
+  	    display: none;
+	}
+
+	.linktab {
+	    position: absolute;
+	    display: flex;
+	    height: auto;
+	    top: 95%;
+	    left: 50%;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    padding: 10px;
+	    border-radius: 5px;
+	    opacity: 1;
+	    transform: translate(-50%, -50%);
+	    z-index: 3;
+	}
+
+	.clickable-links {
+	    display: flex;
+	    justify-content: flex-start;
+	    flex-wrap: nowrap;
+	}
+
+	#volsli {
+	    writing-mode: vertical-rl;
+	    width: 29px;
+	    height: 130px;
+	    transform: rotate(180deg);
+	    background: transparent;
+	    margin: 1px;
+	}
+
+	.tuihitbox {
+	    position: absolute;
+	    display: flex;
+	    height: 40px;
+	    width: 70px; // +60 per icon
+	    opacity: 0;
+	    top: 93%;
+	    left: 91%;
+	    z-index: 3;
+	}
+
+	.tuitab {
+	    display: flex;
+	    flex-direction: row;
+	    justify-content: center;
+	    align-items: center;
+	    padding: 3px;
+	    border-radius: 9px;
+	    background-color: black;
+	    height: auto;
+	    left: 95%;
+	    top: 95%;
+	    opacity: 1;
+	    position: absolute;
+	    transform: translate(-50%, -50%);
+	    transition: top 0.5s ease;
+	    z-index: 3;
+	}
+
+	.icon:hover {
+	    height: 35px;
+	    width: 35px;
+	}
+
+	.icon {
+	    width: 39px;
+	    height: 39px;
+	    cursor: pointer;
+	    margin: 0 10px;
+	    transition: width 0.39s height 0.39s;
+	}
+
+	.popup {
+	    display: none;
+	    position: absolute;
+	    border-radius: 4px;
+	    transform: translateX(-50%);
+	    width: 139px;
+	    height: 19px;
+	    background-color: black;
+	    z-index: 3;
+	    top: 84%;
+	    left: 93%;
+	    padding: 10px;
+	    color: #ffffff;
+            text-align: center;
+            font-size: 1vw;
+	    font-family: "Orbitron", sans-serif;
+	}
+
+	.volumeslidernya {
+	    display: none;
+	    position: absolute;
+	    border-radius: 4px;
+	    transform: translateX(-50%);
+	    flex-direction: column;
+	    margin-bottom: 3px;
+	    width: 19px;
+	    height: 139px;
+	    background-color: black;
+	    z-index: 3;
+	    top: 62.5%;
+	    left: 97.4%;
+	    padding: 10px;
+	    color: #ffffff;
+            align-items: center;
+	    justify-content: center;
+	    text-align: center;
+            font-size: 0.6vw;
+	    font-family: "Orbitron", sans-serif;
+	}
+
+        .bgbgcolumn {
+            float: left;
+            margin-left: 16px;
+	    margin-right: 16px;
+	    margin-top: 1px;
+            width: 99%;
+	    z-index: 3;
+	    flex-direction: row;
+        }
+
+        .upload-button {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 10px;
+            background-color: #030327;
+            color: white;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1vw;
+	    font-family: "Orbitron", sans-serif;
+            border-radius: 5px;
+	    transition: background-color 0.3s;
+	    z-index: 3;
+        }
+
+	.upload-button:hover {
+	    background-color: #00AEAE;
+	}
+
+        #imgupload, #audioupload {
+            display: none;
+        }
+
+	#slider-container-nya {
+	    display: flex;
+	    flex-direction: center;
+	    align-items: center;
+	    justify-content: center;
+	    margin-bottom: 10px;
+	}
+
+	label[for="blurSlider"], label[for="dynabg"], label[for="brightnya"],label[for="clock-move"],label[for="clock-scale"],label[for="bar-move"],label[for="bar-scale"],label[for="clock-seconds"],label[for="dayz"],label[for="linkcontainer"],label[for="linkmove"],label[for="bhbhbh"],label[for="shshsh"],label[for="tui"],label[for="spectralstat"] {
+	    display: flex;
+	    color: white;
+	    align-items: center;
+	    justify-content: center;
+	    font-family: "Orbitron", sans-serif;
+	}
+
+        img.clickable-image {
+            width: 160px;
+            height: 90px;
+            padding: 10px;
+            cursor: pointer;
+	    z-index: 3;
+        }
+
+        video.clickable-video {
+            width: 160px;
+            height: 90px;
+            padding: 10px;
+            cursor: pointer;
+	    z-index: 3;
+        }
+
+        .audiocolumn {
+            display: flex;
+	    flex-direction: column;
+	    gap: 2px;
+	    padding: 20px;
+	    overflow-y: auto;
+	    height: calc(100vh - 100px);
+	    font-size: 0.9vw;
+	    background-color: rgba(3,3,39,0.01);
+	    border-radius: 8px;
+	    z-index: 3;
+        }
+
+	.audio-container {
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	    margin-bottom: 10px;
+	    padding: 10px;
+	    background-color: rgba(3,139,139,0.5);
+	    border-radius: 9px;
+	    color: white;
+	    cursor: pointer;
+	    transition: background-color 0.3s;
+	    z-index: 3;
+	}
+
+	.audio-container:hover {
+	    background-color: rgba(3,139,139,0.9);
+	}
+
+	.audio-info {
+	    display: flex;
+	    flex-direction: column;
+	    justify-column: center;
+	    flex-grow: 1;
+	    font-size: 0.9vw;
+	    color: white;
+	    z-index: 3;
+	}
+
+	.audio-container img {
+	    width: 60px;
+	    height: auto;
+	    margin-right: 10px;
+	    z-index: 3;
+	}
+
+	.audio-duration {
+	    font-size: 0.9vw;
+	    color: white;
+	    z-index: 3;
+	}
+
+        .clickable-audio {
+            display: none;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+	#clockcontainer {
+	    width: 360px;
+	    height: 79.8px; //39.9x2 :P
+	    text-align: center;
+            position: absolute;
+            display: flex;
+	    flex-direction: column;
+	    justify-content: center;
+	    align-items: center;
+	    left: 50%;
+	    top: 25%;
+	    transform: translate(-50%, -50%);
+            color: white;
+            text-shadow: 2% 2% 4% rgba(0, 0, 0, 0.7);
+	    text-align: center;
+	    font-family: "Audiowide", sans-serif;
+	    z-index: 3;
+	}
+
+	#clockbutdate {
+	    font-size: 0.5em;
+	}
+
+	#blackscreenofdeath {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background-color: #000000;
+	    opacity: 0;
+	    z-index: 2;
+	}
+
+	#bgVideo {
+	    position: fixed;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    z-index: 2;
+	}
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+	    // blue mode #ffffff #00ffff;
+            background: linear-gradient(to bottom, #FFFFFF, #00FFFF);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: "Audiowide", sans-serif;
+            font-size: 0.93vw;
+            transition: transform 1s ease;
+            z-index: 4;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+	.tab-container {
+	    display: flex;
+	    background-color: #000000;
+	    justify-content: center;
+	    align-items: center;
+	    gap: 10px;
+	}
+
+	.ytmp3 {
+	    display: flex;
+	    background-color: #000000;
+	    justify-content: center;
+	    align-items: left;
+	    z-index: 3;
+	    width: 39%;
+	    height: 5%;
+	    top: -9%;
+	    left: 50%;
+	    transform: translateX(-50%);
+	    transition: top 0.5s ease;
+	    position: absolute;
+	    border-radius: 13px;
+	    padding: 9px;
+	    color: white;
+	}
+
+	.ytinput {
+	    width: 70%;
+	    padding: 1px;
+	    margin-right: 3px;
+	    border-radius: 9px;
+	    border: 1px solid #000000;
+	    outline: none;
+	}
+
+	.ytbutton {
+	    border-radius: 9px;
+	    margin-left: 3px;
+	    padding: 1px;
+	}
+
+	.switch-button {
+	    padding: 1px 1px;
+	    width: 33%;
+	    height: 39px;
+	    background-color: #000000;
+	    color: white;
+	    border: none;
+	    cursor: pointer;
+	    transition: background-color 0.3s;
+	    font-size: 1vw;
+            font-family: 'Audiowide', sans-serif;
+	}
+
+	.switch-button:hover {
+	    background-color: #00AEAE;
+	}
+
+	.rcrcnya {
+	    display: flex;
+	    margin-top: 13px;
+	    margin-bottom: 13px;
+	    align-items: center;
+	    justify-content: center;
+	    gap: 3px;
+	}
+
+	.rcnya {
+	}
+
+    </style>
+</head>
+<body>
+
+    <div class="loading-screen" id="loadingScreen">
+        <h1>Loading...</h1>
+    </div>
+
+    <div id="backgroundcontainer" style="left: 0%; position: relative; width: 100%; height: 100%; z-index: 1;"></div>
+
+    <div id="blackscreenofdeath"></div>
+
+    <div id="bgVideo"></div>
+
+    <div class="spectre">
+        <canvas id="spectre"></canvas>
+    </div>
+    <div class="spectrepb">
+	<input type="range" id="mp3pbnya" class="playbackslider" value="0" min="0" step="0.1">
+	<div id="spbrects" class="pbsrect"></div>
+    </div>
+
+    <img id="NyaImage" src="https://www.dropbox.com/scl/fi/il8e8add9gjy756evbdkd/NanoApostle-Soundtrack-Cover.png?rlkey=sqvnff3au6smzled7q5f6uwdr&st=e9dwrsvd&raw=1" alt="Default Image" style="display: none;">
+
+    <video autoplay muted loop class="video-background" id="backgroundcontainer">
+        <source src="https://www.dropbox.com/scl/fi/ovh8mdyr40o35y562w205/mylivewallpapers-com-Singer-Karenina-FHD.mp4?rlkey=hhis9jyr1b07j8u9f23bbtxyt&st=0mha62dc&raw=1">
+        Your browser does not support this tag nya~ 
+    </video>
+
+    <div id="ytmp3e" class="ytmp3">
+	<input type="text"id="ytnya" class="ytinput" placeholder="FEED ME LINKS">
+	<button id="ytnyab" class="ytbutton">retnE</button>
+    </div>
+
+    <div id="clockcontainer">
+        <div id="clock">03:39:39</div>
+        <div id="clockbutdate">Wednesday 3 September</div>
+    </div>
+
+    <div class="tuihitbox"></div>
+    <div id="tuitab" class="tuitab">
+	<div class="clickable-links">
+	    <img src="C:/Users/wkchi/Downloads/evilliv.png" class="icon" alt="Icon 4" id="icon4">
+	</div>
+	<div class="clickable-links">
+	    <img src="C:/Users/wkchi/Downloads/evilliv.png" class="icon" alt="Icon 5" id="icon5">
+	</div>
+    </div>
+
+    <div id="volumeslidernya" class="volumeslidernya">
+	<label for="volsli"><span id="vv">100</span></label>
+	<input type="range" id="volsli" min="0" max="100" value="100">
+    </div>
+
+    <div id="popup" class="popup">not supported</div>
+
+    <div id="linktab" class="linktab">
+	<div class="clickable-links">
+	    <a
+		href="https://music.youtube.com"
+		target="_blank"
+		rel="noopener noreferrer"
+	    >
+		<img src="https://api.bonjourr.fr/favicon/blob/https://music.youtube.com" alt="Icon 1" class="icon">
+	    </a>
+	    <a
+		href="https://web.whatsapp.com"
+		target="_blank"
+		rel="noopener noreferrer"
+	    >
+		<img src="https://api.bonjourr.fr/favicon/blob/https://web.whatsapp.com" alt="Icon 2" class="icon">
+	    </a>
+	    <a
+		href="https://discord.com/app"
+		target="_blank"
+		rel="noopener noreferrer"
+	    >
+		<img src="https://api.bonjourr.fr/favicon/blob/https://discord.com/app" alt="Icon 3" class="icon">
+	    </a>
+	    <a
+		href="https://www.office.com/launch/Excel"
+		target="_blank"
+		rel="noopener noreferrer"
+	    >
+		<img src="https://www.dropbox.com/scl/fi/214qgf8w8p2cpq9xenfa6/excel_icon.png?rlkey=f31ujtac566f2e83kqii7wyjj&st=pkw4vrsx&raw=1" alt="Icon 4" class="icon">
+	    </a>
+	</div>
+    </div>
+
+    <button id="bgbgbutton">Show Media</button>
+
+    <div id="BGBGtab" class="bgbg-tab">
+	<div class="tab-container">
+            <button id="switchToAudio" class="switch-button">Audio Uploads</button>
+            <button id="switchToMedia" class="switch-button">Image/Video Uploads</button>
+            <button id="switchToSettings" class="switch-button">Settings</button>
+	</div>
+	<div class="rcrcnya">
+	    <button id="centercanvas" class="rcnya">Reset Visualiser</button>
+	    <button id="centerclock" class="rcnya">Reset Clock</button>
+	    <button id="clearAll" class="rcnya">Refresh audiowave</button>
+	</div>
+
+        <div id="mediaTab">
+            <button id="uploadImageButton" class="upload-button">Upload Image or Video Here Nya~</button>
+            <input type="file" id="imgupload" accept="image/*,video/mp4">
+
+            <div class="bgbgcolumn">
+                <img src="https://www.dropbox.com/scl/fi/gc5i97u6elgnoawqyyovt/karenina-theme-poster.png?rlkey=6siwpdh6i0s1v20rr3i6ti2tb&st=kmhwr7y3&raw=1" alt="Image 1" class="clickable-image" id="image1">
+                <img src="https://www.dropbox.com/scl/fi/c9qu383104h4mm1mbrsdf/karenina-magificent.png?rlkey=hkznbhrdfjnw9n65l1i6b5e9k&st=tisgq718&raw=1" alt="Image 2" class="clickable-image" id="image2">
+            </div>
+            <div class="bgbgcolumn">
+                <video src="https://www.dropbox.com/scl/fi/4jk20yx8u5pl7ljojgmrd/mylivewallpapers.com-Karenina-Idol-Skin-4K.mp4?rlkey=zorvio80161nsjwsezcxj22ng&st=tn2fcldv&raw=1" alt="Video 3" class="clickable-video" id="video3" controls></video>
+                <video src="https://www.dropbox.com/scl/fi/gazb0asmv9a298kfbpj40/mylivewallpapers.com-Karenina-PGR-4K.mp4?rlkey=j7wtv46u2imzte2pyou5zr3by&st=qp7sut3b&raw=1" alt="Video 4" class="clickable-video" id="video4" controls></video>
+            </div>
+	    <div class="bgbgcolumn">
+		<video src="https://www.dropbox.com/scl/fi/ovh8mdyr40o35y562w205/mylivewallpapers-com-Singer-Karenina-FHD.mp4?rlkey=hhis9jyr1b07j8u9f23bbtxyt&st=0ae2ltzd&raw=1" alt="Video 5" class="clickable-video" id="video5" controls></video>
+		<video src="https://www.dropbox.com/scl/fi/1fe9i8x5j54f8iidzb5m4/blackrockshooter.mp4?rlkey=txgvhtz4xznzwmxs1xkl5ua4v&st=5sadjvj7&raw=1" alt="Video 6" class="clickable-video" id="video6" controls></video>
+	    </div>
+	    <div class="bgbgcolumn">
+		<img src="https://www.dropbox.com/scl/fi/ul9gundlvducrdwfd6x4b/nanopostle.jpg?rlkey=at6wz7kpfu0vduimsu1w4sbwd&st=0kh51na9&raw=1" alt="Image 7" class="clickable-image" id="image7">
+		<img src="https://www.dropbox.com/scl/fi/5ki99sl4tc8lp88hkd052/nanonya.png?rlkey=96d2ih3dkykjkcnd2t3lcodae&st=t4xr0cv7&raw=1" alt="Image 8" class="clickable-image" id="image8">
+	    </div>
+	    <div class="bgbgcolumn">
+		<img src="C:/Users/wkchi/Downloads/brsbrsbrs.png" class="clickable-image" id="image9">
+		<img src="https://www.dropbox.com/scl/fi/oxob3mpboig7f0uxersoi/1321ec0a11195fe4321f7baad2e38f46382651856.png?rlkey=a39u3yld64n820esq2anv60wk&st=yh2acexy&raw=1" alt="Image 10" class="clickable-image" id="image10">
+	    </div>
+        </div>
+
+        <div id="audioTab" style="display:none;">
+  	  <button id="uploadAudioButton" class="upload-button">Upload Audio Here Nya~</button>
+ 	  <input type="file" id="audioupload" accept="audio/*" style="display:none;">
+
+          <div class="audiocolumn"></div>
+	</div>
+
+	<div id="settingTab" style="display:none;">
+	    <div id="slider-container-nya">
+	        <label for="blurSlider">Blur: </label>
+	        <input type="range" id="blurSlider" min="0" max="20" value="0">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="dynabg">Dynamic: </label>
+	        <input type="range" id="dynabg" min="0" max="1" value="0">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="brightnya">Dimness: </label>
+	        <input type="range" id="brightnya" min="0" max="100" value="0">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="clock-seconds">Show seconds</label>
+	        <input type="range" id="clock-seconds" min="0" max="1" value="1">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="dayz">Show Date</label>
+	        <input type="range" id="dayz" min="0" max="1" value="1">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="clock-move">Move Clock</label>
+	        <input type="range" id="clock-move" min="0" max="1" value="0">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="clock-scale">Clock Size</label>
+	        <input type="range" id="clock-scale" min="1" max="39" value="19">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="spectralstat">Line/Ball</label>
+	        <input type="range" id="spectralstat" min="0" max="1" value="0">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="bar-move">Move Bar</label>
+	        <input type="range" id="bar-move" min="0" max="1" value="0">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="bar-scale">Bar Size</label>
+	        <input type="range" id="bar-scale" min="1" max="39" value="19">
+    	    </div>
+	    <div id="slider-container-nya">
+	        <label for="bhbhbh">DeciBel</label>
+	        <input type="range" id="bhbhbh" min="-32" max="32" value="0">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="shshsh">Sensitivity</label>
+	        <input type="range" id="shshsh" min="1" max="39" value="10">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="linkcontainer">Enable Links</label>
+	        <input type="range" id="linkcontainer" min="0" max="1" value="1">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="linkmove">Move Link</label>
+	        <input type="range" id="linkmove" min="0" max="1" value="0">
+	    </div>
+	    <div id="slider-container-nya">
+	        <label for="tui">DUI</label>
+	        <input type="range" id="tui" min="0" max="1" value="0">
+	    </div>
+	</div>
+    </div>
+
+    <script>
+	let audioplaynya = false;
+
+	const playbackrect = document.getElementById('spbrects');
+	const vvnya = document.getElementById('vv');
+	const volumeslider = document.getElementById('volsli');
+	const volctrl = document.getElementById('icon5');
+	const spectralnya = document.getElementById('spectralstat');
+	const tuikek = document.getElementById('tui');
+	const shsh = document.getElementById('shshsh');
+	const bhbh = document.getElementById('bhbhbh');
+	const linkmovenya = document.getElementById('linkmove');
+	const linktabnya = document.getElementById('linktab');
+	const linkkek = document.getElementById('linkcontainer');
+	const dayznya = document.getElementById('dayz');
+	const clockseconds = document.getElementById('clock-seconds');
+	const clockscale = document.getElementById('clock-scale');
+	const barscale = document.getElementById('bar-scale');
+	const clockmove = document.getElementById('clock-move');
+	const barmove = document.getElementById('bar-move');
+	const clocknya = document.getElementById('clockcontainer');
+	const ccanvas = document.getElementById('centercanvas');
+	const cclock = document.getElementById('centerclock');
+	const videoCon = document.getElementById('backgroundcontainer');
+	const dynamicstatus = document.getElementById('dynabg');
+	const brightness = document.getElementById('brightnya');
+	const bsod = document.getElementById('blackscreenofdeath');
+	const audioContainer = document.getElementById('audioContainer');
+	const blurslider = document.getElementById('blurSlider');
+	const canvas = document.getElementById('spectre');
+	const canvasContext = canvas.getContext('2d');
+
+        window.onload = function() {
+            setTimeout(() => {
+                const loadingScreen = document.getElementById('loadingScreen');
+                loadingScreen.style.transform = 'translateY(+100%)';
+            }, 390);
+        };
+
+	const ytmp3nya = document.getElementById('ytmp3e');
+
+	document.addEventListener('mousemove', (event) => {
+	    const mx = event.clientX;
+	    const my = event.clientY;
+	    const vpw = window.innerWidth;
+	    const vph = window.innerHeight;
+	    if (mx >= vpw*0.3 && mx <= vpw*0.7 && my >= 0 && my <= vph/13) {
+		ytmp3nya.style.top = `1%`;
+	    } else {
+		ytmp3nya.style.top = `-9%`;
+	    }
+	    if (mx >= vpw*0.9 && mx <= vpw && my >= vph*0.9 && my <= vph) {
+		tuitab.style.top = `95%`;
+	    } else {
+		tuitab.style.top = `105%`;
+	    }
+	});
+
+	const sbnya = document.getElementById('ytnyab');
+
+	document.getElementById('ytnya').addEventListener('keypress', (event) => {
+	    if (event.key === 'Enter') {sbnya.click();}
+	});
+
+	sbnya.addEventListener('click', async () => {
+	    const youtubeurl = ytnya.value.trim();
+	    const ytregex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})(\?.*)?$/;
+	    const encodedyt = encodeURIComponent(youtubeurl);
+	    const APIUrl = `https://youtube-to-mp315.p.rapidapi.com/download?url=${encodedyt}&format=mp3`;
+	    const opts = {
+		method: 'POST',
+		headers: {
+		    'x-rapidapi-key': 'b7a69ecc5fmshf4743fe67010cf7p10b41ejsn2e4d3c762c77',
+		    'x-rapidapi-host': 'youtube-to-mp315.p.rapidapi.com',
+		    'Content-type': 'application/json',
+		},
+		body: {}
+	    };
+
+	    if (ytregex.test(youtubeurl)) {
+		try {
+		    console.log("Converting nya...");
+		    const rspyt = await fetch(APIUrl, opts);
+		    await new Promise(resolve => setTimeout(resolve, 3900));
+		    const resultD = await rspyt.json();
+		    const Nekonyaurl = await resultD.downloadUrl;
+		    const rspblob = await fetch(Nekonyaurl);
+		    const nekonyablob = await rspblob.blob();
+		    const nekoaudio = URL.createObjectURL(nekonyablob);
+		    const aenya = new Audio(nekoaudio);
+		    console.log(resultD);
+		    console.log(Nekonyaurl);
+		    aenya.play();
+		} catch (error) {
+		    console.log(error);
+		}
+	    } else {
+		console.log('Invalid url nya');
+	    }
+	    ytnya.value = '';
+	});
+
+	document.getElementById('clearAll').addEventListener('click',refreshCanvas);
+
+	const scale = window.devicePixelRatio || 1;
+	const baseWidthneko = 384;
+	const baseHeightneko = 432;
+
+	let dynadyna = false;
+	let bsn = 0.95;
+	let wnya = baseWidthneko * bsn;
+	let hnya = baseHeightneko * bsn;
+	canvas.width = 729;
+	canvas.height = 820;
+
+	brightness.addEventListener('input', function() {
+	    const nyabright = brightness.value / 100;
+	    bsod.style.opacity = nyabright;
+	});
+
+	volsli.addEventListener('input', function() {
+	    const volumelevel = volsli.value;
+	    vvnya.textContent = volumelevel;
+	    const audioElements = document.querySelectorAll('audio');
+	    audioElements.forEach(audio => {
+		audio.volume = volumelevel / 100;
+	    });
+	});
+
+	let battpost = 0;
+
+	navigator.getBattery().then(function(battery) {
+	  function updateBattStatus() {
+	    const battpercent = Math.round(battery.level * 100);
+	    const battcharge = battery.charging ? "Charging" : "Not Charging";
+	    document.getElementById('popup').innerText = `${battpercent}% (${battcharge})`;
+
+	    battpost++;
+	    if (battpost > 14) {
+		console.log(`Battery: ${battpercent}%`);
+		battpost = 0;
+	    }
+
+	    const iconnya = document.getElementById('icon4');
+	    if (battpercent >= 80) {
+		if (battery.charging) { 
+		  iconnya.src = "https://www.dropbox.com/scl/fi/5hmw4y9pbj7vnryi4mqct/batt100c.png?rlkey=j6y2dwggl5x0pnx8g3b33lxpp&st=1952q7bv&raw=1";
+		} else {
+		  iconnya.src = "https://www.dropbox.com/scl/fi/i6m3hfaq0plaugqfwn8dg/batt100nc.png?rlkey=wslo87vbdc2srue5bhncugwir&st=pxzmrvgo&raw=1";
+		}
+	    } else if (battpercent >= 60) {
+		if (battery.charging) { 
+		  iconnya.src = "https://www.dropbox.com/scl/fi/0s6rwqg56pa76h8g48pem/batt80c.png?rlkey=xi3u25rjyamzv3ti7urb7ul7u&st=vrlkx910&raw=1";
+		} else {
+		  iconnya.src = "https://www.dropbox.com/scl/fi/t7oa0fa2dwuxe4rv70wzq/batt80nc.png?rlkey=gqroiso5tjzts1w3sko559tic&st=lj46bwb0&raw=1";
+		}
+	    } else if (battpercent >= 40) {
+		if (battery.charging) { 
+		  iconnya.src = "https://www.dropbox.com/scl/fi/9ewrgq5leo5ib973wqcv6/batt60c.png?rlkey=uyx5lam39pmk8lfn7ufeju546&st=1px8t0bz&raw=1";
+		} else {
+		  iconnya.src = "https://www.dropbox.com/scl/fi/q9ue3nnksp0okz86r6nqo/batt60nc.png?rlkey=i7qo0ae2vxbqf0b8spuyorbh3&st=m022lptt&raw=1";
+		}
+	    } else if (battpercent >= 20) {
+		if (battery.charging) { 
+		  iconnya.src = "https://www.dropbox.com/scl/fi/3vcfsmoyx25868s3e45em/batt40c.png?rlkey=8tevpccefouwi503crlnb76w4&st=i64cge1a&raw=1";
+		} else {
+		  iconnya.src = "https://www.dropbox.com/scl/fi/1bjar0oki0cu1yn4kkcx8/batt40nc.png?rlkey=bylvbhijahhqtoh9swr5ax586&st=4060xp6g&raw=1";
+		}
+	    } else {
+		if (battery.charging) { 
+		  iconnya.src = "https://www.dropbox.com/scl/fi/ulvx5zkrfod3qbj5cuo14/batt20c.png?rlkey=dnj4xg9dao599i97y75b9xi5b&st=nqssrk2j&raw=1";
+		} else {
+		  iconnya.src = "https://www.dropbox.com/scl/fi/03qf5m9wyvg67g4kphkc8/batt20nc.png?rlkey=uk6eb0wz2ds4iqodtlzs338n9&st=w4fpub4c&raw=1";
+		}
+	    }
+	  }
+	  updateBattStatus();
+	  setInterval(updateBattStatus, 1000);
+	});
+
+	let tuistat = 0;
+
+	tuikek.addEventListener('input', function() {
+	    tuistat = tuikek.value;
+	    if (tuistat == 1) {
+		tuitab.style.display = 'none';
+	    } else {
+		tuitab.style.display = 'block';
+	    }
+	});
+
+	let bhbhnya = 0.1;
+
+	bhbh.addEventListener('input', function() {
+	    bhbhnya = Math.floor(bhbh.value);
+	});
+
+	let shshnya = 1.001;
+
+	shsh.addEventListener('input', function() { // range 1 to 39
+	    shshnya = Math.floor(shsh.value) * 0.1; // range 10% to 390%
+	});
+
+	let dayzstat = 1;
+	dayznya.addEventListener('input', function() {
+	    dayzstat = dayznya.value;
+	});
+
+	let spectrumballz = 0;
+
+	spectralnya.addEventListener('input', function() {
+	    spectrumballz = Math.floor(spectralnya.value);
+	});
+
+	let linkmovestat = 0;
+	let lmnn = false;
+	linkmovenya.addEventListener('input', function() {
+	    linkmovestat = linkmovenya.value;
+	    if (linkmovestat == 1) {lmnn = true;} else {lmnn = false;}
+	});
+
+	let clocksecondsnya = 1;
+	clockseconds.addEventListener('input', function() {
+	    clocksecondsnya = clockseconds.value;
+	});
+
+	barscale.addEventListener('input', function() { // 19 default nya, range 1-39
+	    bsn = (barscale.value * 5) / 100; // range from 5%-195% 
+	    updateCanvasSizeNya();
+	});
+
+	linkkek.addEventListener('input', function() {
+	    linkstat = linkkek.value;
+	    if (linkstat == 1) {
+		linktabnya.style.display = 'block';
+	    } else {
+		linktabnya.style.display = 'none';
+	    }
+	});
+
+	let csn = 0.95;
+	let cwnya = 360 * csn;
+	let chnya = 79.8 * csn;
+	clocknya.style.fontSize = `39.9px`;
+	clocknya.style.width = cwnya + 'px';
+	clocknya.style.height = chnya + 'px';
+
+	function updateClockSizeNya() {
+	    const cwnya = 360 * csn;
+	    const chnya = 79.8 * csn;
+	    clocknya.style.width = `${cwnya}px`;
+	    clocknya.style.height = `${chnya}px`;
+	    clocknya.style.fontSize = `${(chnya*0.5)}px`;
+	}
+
+	function updateCanvasSizeNya() {
+	    const wnya = baseWidthneko * bsn;
+	    const hnya = baseHeightneko * bsn;
+	    canvas.width = wnya * scale;
+	    canvas.height = hnya * scale;
+	    const rectnyanya = canvas.getBoundingClientRect()
+	    whyyes.style.top = ((rectnyanya.top + rectnyanya.height / 2) + 360) + 'px';
+	    whyyes.style.left = (rectnyanya.left+rectnyanya.width / 2) + 'px';
+	}
+
+	clockscale.addEventListener('input', function() {  // same thing, 1-39 range
+	    csn = clockscale.value * 0.26;
+	    updateClockSizeNya();
+	});
+
+	dynamicstatus.addEventListener('input', function() {
+	    const DYNANYA = dynamicstatus.value;
+	    if (DYNANYA == 1) {dynadyna = true;} else {dynadyna = false;}
+	});
+
+	let moveclocknyanya = false;
+
+	clockmove.addEventListener('input', function() {
+	    const mclocknya = clockmove.value;
+	    if (mclocknya == 1) {moveclocknyanya = true;} else {moveclocknyanya = false;}
+	});
+
+	let movebarnyanya = false;
+
+	barmove.addEventListener('input', function() {
+	    const mbarnya = barmove.value;
+	    if (mbarnya == 1) {movebarnyanya = true;} else {movebarnyanya = false;}
+	});
+
+	ccanvas.addEventListener('click', function() {
+	    const parentContainernya = document.querySelector('.spectre');
+	    parentContainernya.style.left = `50%`;
+	    parentContainernya.style.top = `25%`;
+	    bsn = 0.95;
+	    updateCanvasSizeNya();
+	});
+
+	cclock.addEventListener('click', function() {
+	    clocknya.style.top = `25%`;
+	    clocknya.style.left = `50%`;
+	    csn = 0.95;
+	    updateClockSizeNya();
+	});
+
+	function sleep( _ms = 0 ) { var _start = new Date().getTime(); while( _ms > ( new Date().getTime() - _start ) ){} }
+
+	async function refreshCanvas() {
+	    audioplaynya = false;
+	    currentAudionya.pause();
+	    console.log("refreshing nya!");
+	    // await new Promise(resolve => setTimeout(resolve, 390));
+	    // audioplaynya = true;
+	    // currentAudionya.play();
+	}
+
+	document.getElementById('icon4').addEventListener('click', function() {
+	    const popupnya = document.getElementById('popup');
+	    popupnya.style.display = (popupnya.style.display === 'block') ? 'none' : 'block';
+	});
+
+	volctrl.addEventListener('click', function() {
+	    const volsn = document.getElementById('volumeslidernya');
+	    volsn.style.display = (volsn.style.display === 'flex') ? 'none' : 'flex';
+	});
+
+	function updateClock() {
+	    const dtnya = new Date();
+	    const hrsnya = String(dtnya.getHours()).padStart(2,'0');
+	    const minnya = String(dtnya.getMinutes()).padStart(2,'0');
+	    let timeStringNya;
+	    let timeStringNya2;
+	    if(clocksecondsnya == 1) {
+	        const sssnya = String(dtnya.getSeconds()).padStart(2,'0');
+	        timeStringNya = `${hrsnya}:${minnya}:${sssnya}`;
+	    } else {
+	        timeStringNya = `${hrsnya}:${minnya}`;
+	    }
+	    if(dayzstat == 1) {
+	        const clockmonthno = dtnya.getMonth();
+	        let clockmonthnya;
+		if (clockmonthno == 0) {clockmonthnya = "January";}
+		if (clockmonthno == 1) {clockmonthnya = "February";}
+		if (clockmonthno == 2) {clockmonthnya = "March";}
+		if (clockmonthno == 3) {clockmonthnya = "April";}
+		if (clockmonthno == 4) {clockmonthnya = "May";}
+		if (clockmonthno == 5) {clockmonthnya = "June";}
+		if (clockmonthno == 6) {clockmonthnya = "July";}
+		if (clockmonthno == 7) {clockmonthnya = "August";}
+		if (clockmonthno == 8) {clockmonthnya = "September";}
+		if (clockmonthno == 9) {clockmonthnya = "October";}
+		if (clockmonthno == 10) {clockmonthnya = "November";}
+		if (clockmonthno == 11) {clockmonthnya = "December";}
+		const clockdayzno = dtnya.getDay();
+		let clockdayznya;
+		if (clockdayzno == 0) {clockdayznya = "Sunday";}
+		if (clockdayzno == 1) {clockdayznya = "Monday";}
+		if (clockdayzno == 2) {clockdayznya = "Tuesday";}
+		if (clockdayzno == 3) {clockdayznya = "Wednesday";}
+		if (clockdayzno == 4) {clockdayznya = "Thursday";}
+		if (clockdayzno == 5) {clockdayznya = "Friday";}
+		if (clockdayzno == 6) {clockdayznya = "Saturday";}
+		const clockdate = String(dtnya.getDate()).padStart(2, '0');
+		timeStringNya2 = `${clockdayznya} ${clockdate} ${clockmonthnya}`;
+		clockbutdate.style.display = 'block';
+	    } else {
+	        timeStringNya2 = "~( = ^•ω •^ ) _ 旦";
+		clockbutdate.style.display = 'none';
+	    }
+	    document.getElementById("clock").innerHTML = timeStringNya;
+	    document.getElementById("clockbutdate").innerHTML = timeStringNya2;
+	}
+	updateClock();
+	setInterval(updateClock, 1000);
+
+	blurslider.addEventListener('input', function() {
+	    const BLURNYA = blurslider.value;
+	    videoCon.style.filter = `blur(${BLURNYA}px)`;
+	    bgVideo.style.filter = `blur(${BLURNYA}px)`;
+	});
+
+	let isDraggingcanvas = false;
+	let isDraggingclock = false;
+	let isDragginglink = false;
+	let offsetXs, offsetYs;
+	let offsetXk, offsetYk
+	let offsetXl, offsetYl;
+
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+
+	canvas.addEventListener('mousedown',(e) => {
+	  isDraggingcanvas = true;
+	  const rectnyanya = canvas.getBoundingClientRect();
+	  offsetXs = e.clientX - (rectnyanya.left + rectnyanya.width / 2);
+	  offsetYs = e.clientY - (rectnyanya.top + rectnyanya.height / 2);
+	});
+
+	const whyyes = document.querySelector('.spectrepb');
+
+	document.addEventListener('mousemove',(e) => {
+	  if (isDraggingcanvas && movebarnyanya) {
+	    const parentContainer = document.querySelector('.spectre');
+	    parentContainer.style.left = (e.clientX - offsetXs) + 'px';
+	    parentContainer.style.top = (e.clientY - offsetYs) + 'px';
+	    const rectnyanya = canvas.getBoundingClientRect();
+	    whyyes.style.top = ((rectnyanya.top + rectnyanya.height / 2) + 360) + 'px';
+	    whyyes.style.left = (rectnyanya.left+rectnyanya.width / 2) + 'px';
+	  }
+	});
+
+	document.addEventListener('mouseup', () => {
+	  isDraggingcanvas = false;
+	});
+
+	clockcontainer.addEventListener('mousedown',(e) => {
+	  isDraggingclock = true;
+	  const rect = clocknya.getBoundingClientRect();
+	  offsetXk = e.clientX - (rect.left + rect.width / 2);
+	  offsetYk = e.clientY - (rect.top + rect.height / 2);
+	});
+
+	document.addEventListener('mousemove',(e) => {
+	  if (isDraggingclock && moveclocknyanya) {
+	    clocknya.style.left = (e.clientX - offsetXk) + 'px';
+	    clocknya.style.top = (e.clientY - offsetYk) + 'px';
+	  }
+	});
+
+	document.addEventListener('mouseup', () => {
+	  isDraggingclock = false;
+	});
+
+	linktabnya.addEventListener('mousedown',(e) => {
+	  isDragginglink = true;
+	  const rectlinknya = linktabnya.getBoundingClientRect();
+	  offsetXl = e.clientX - (rectlinknya.left + rectlinknya.width / 2);
+	  offsetYl = e.clientY - (rectlinknya.top + rectlinknya.height / 2);
+	});
+
+	document.addEventListener('mousemove',(e) => {
+	  if (isDragginglink && lmnn) {
+	    linktabnya.style.left = (e.clientX - offsetXl) + 'px';
+	    linktabnya.style.top = (e.clientY - offsetYl) + 'px';
+	  }
+	});
+
+	document.addEventListener('mouseup', () => {
+	  isDragginglink = false;
+	});
+
+        document.getElementById('bgbgbutton').addEventListener('click', function() {
+            const BGBGtab = document.getElementById('BGBGtab');
+            const button = this;
+            if (BGBGtab.style.left === '100%') {
+                BGBGtab.style.left = '70%';
+                button.textContent = 'Hide Media';
+                button.style.top = '6.8%';
+                button.style.left = '66.3%';
+            } else {
+                BGBGtab.style.left = '100%';
+                button.textContent = 'Show Media';
+                button.style.top = '6.8%';
+                button.style.left = '95.9%';
+            }
+        });
+
+        document.getElementById('switchToMedia').addEventListener('mouseover', function() {
+            document.getElementById('mediaTab').style.display = 'block';
+            document.getElementById('audioTab').style.display = 'none';
+            document.getElementById('settingTab').style.display = 'none';
+        });
+
+        document.getElementById('switchToAudio').addEventListener('mouseover', function() {
+            document.getElementById('mediaTab').style.display = 'none';
+            document.getElementById('audioTab').style.display = 'block';
+            document.getElementById('settingTab').style.display = 'none';
+        });
+
+        document.getElementById('switchToSettings').addEventListener('mouseover', function() {
+            document.getElementById('mediaTab').style.display = 'none';
+            document.getElementById('audioTab').style.display = 'none';
+            document.getElementById('settingTab').style.display = 'block';
+        });
+
+        // Image and Video upload
+        document.getElementById('uploadImageButton').addEventListener('click', function() {
+            const imgInput = document.getElementById('imgupload');
+            imgInput.click();
+        });
+
+        let imgcount = 0;
+        let colcount = 1;
+
+        document.getElementById('imgupload').addEventListener('change', function() {
+    	    const file = this.files[0];
+    	    if (file) {
+                const reader = new FileReader();
+        	reader.onload = function(e) {
+                if (file.type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('clickable-image');
+                    img.style.width = '160px';
+                    img.style.height = '90px';
+
+                    img.addEventListener('click', function() {
+                        // Set the background image
+                        videoCon.style.backgroundImage = `url(${e.target.result})`;
+                        videoCon.style.backgroundSize = 'cover';
+                        videoCon.style.backgroundPosition = 'center';
+                    
+                        // Hide the video
+                        const bgvideo = document.getElementById('bgVideo');
+                        bgvideo.style.display = 'none';
+
+ 	    		const existingVideos = document.querySelectorAll('.video-background');
+	    		existingVideos.forEach(video => video.remove());
+                    });
+
+                    const bgbgTabnya = document.getElementById('mediaTab');
+                    let currentcolumn = bgbgTabnya.querySelector(`.bgbgcolumn:nth-of-type(${colcount})`);
+                    if (!currentcolumn || imgcount === 2) {
+                        currentcolumn = document.createElement('div');
+                        currentcolumn.classList.add('bgbgcolumn');
+                        bgbgTabnya.appendChild(currentcolumn);
+                        colcount++;
+                        imgcount = 0;
+                    }
+                    currentcolumn.appendChild(img);
+                    imgcount++;
+                } else if (file.type === 'video/mp4') {
+                    const video = document.createElement('video');
+                    video.src = e.target.result;
+                    video.classList.add('clickable-image');
+                    video.style.width = '160px';
+                    video.style.height = '90px';
+                    video.controls = true; // Optional: Show video controls
+
+                    video.addEventListener('click', function() {
+                        // Hide the video background
+                        const bgVideo = document.getElementById('bgVideo');
+
+			// IMPORTANT Removes old video
+			const existingVideos = document.querySelectorAll('.video-background');
+			existingVideos.forEach(video => video.remove());
+
+                        // Create a new video element to play in the background
+                        const newVideo = document.createElement('video');
+                        newVideo.src = e.target.result;
+                        newVideo.autoplay = true;
+                        newVideo.muted = true;
+                        newVideo.loop = true;
+                        newVideo.classList.add('video-background');
+  
+                        // Append to body and play
+                        videoCon.appendChild(newVideo);
+                    });
+
+                    const bgbgTabnya = document.getElementById('mediaTab');
+                    let currentcolumn = bgbgTabnya.querySelector(`.bgbgcolumn:nth-of-type(${colcount})`);
+                    if (!currentcolumn || imgcount === 2) {
+                        currentcolumn = document.createElement('div');
+                        currentcolumn.classList.add('bgbgcolumn');
+                        bgbgTabnya.appendChild(currentcolumn);
+                        colcount++;
+                        imgcount = 0;
+                    }
+                    currentcolumn.appendChild(video);
+                    imgcount++;
+                } else {
+                    alert('Unsupported file type selected.');
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            console.log("No file was selected.");
+        }
+    });
+
+	let currentAudionya = null;
+
+        // Audio upload
+        document.getElementById('uploadAudioButton').addEventListener('click', function() {
+            const audioInput = document.getElementById('audioupload');
+            audioInput.click();
+        });
+
+	document.getElementById('audioupload').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const mp3read = new FileReader();
+        	mp3read.onload = function(e) {
+                    const audio = document.createElement('audio');
+                    audio.src = e.target.result;
+		    audio.controls = false;
+                    audio.classList.add('clickable-audio');
+		    audio.style.display = 'none';
+
+		    const mp3name = file.name;
+		    const mp3namenomp3 = mp3name.replace(/\.mp3$/,'');
+
+		    const durationElement = document.createElement('div');
+		    const nameElement = document.createElement('div');
+
+		    durationElement.classList.add('audio-duration');
+		    nameElement.textContent = mp3namenomp3;
+
+		    audio.addEventListener('loadedmetadata', function() {
+			const duration = Math.floor(audio.duration);
+			const min = Math.floor(duration/60);
+			const second = Math.floor(duration%60);
+			let mp3sec;
+			if (second < 10) {
+			    mp3sec = "0" + second;
+			} else {
+			    mp3sec = second;
+			}
+			if (duration > 3600) {
+			    const hrnya = Math.floor(duration/3600);
+			    duranya = hrnya + ":" + min + ":" + mp3sec;
+			} else {
+			    duranya = min + ":" + mp3sec;
+			}
+			durationElement.textContent = duranya;
+		    });
+
+		    const imgElement = document.createElement('img');
+		    imgElement.src = 'https://www.dropbox.com/scl/fi/il8e8add9gjy756evbdkd/NanoApostle-Soundtrack-Cover.png?rlkey=sqvnff3au6smzled7q5f6uwdr&st=e9dwrsvd&raw=1';
+		    imgElement.alt = 'Audio Image';
+
+		    const audioContainer = document.createElement('div');
+		    audioContainer.classList.add('audio-container');
+		    audioContainer.appendChild(imgElement);
+		    audioContainer.appendChild(nameElement);
+		    audioContainer.appendChild(durationElement);
+		    audioContainer.appendChild(audio);
+    		    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    		    const analyser = audioContext.createAnalyser();
+    		    const source = audioContext.createMediaElementSource(audio);
+
+		    audio.addEventListener('ended', function() {
+			audio.pause();
+			audioplaynya = false;
+			console.log("Song Replay! Nya!");
+		        audio.currentTime = 0;
+			audioplaynya = true;
+			audio.play();
+		    });
+
+                    audioContainer.addEventListener('click', function() {
+			if (currentAudionya && currentAudionya !== audio) {
+			    currentAudionya.pause();
+			    audioplaynya = false;
+			    currentAudionya.currentTime = 0;
+			}
+
+			let playback_value = 0;
+
+			audio.addEventListener('timeupdate', () => {
+	    		    mp3pbnya.max = currentAudionya.duration;
+	    		    mp3pbnya.value = currentAudionya.currentTime;
+			    playback_value = currentAudionya.currentTime/currentAudionya.duration * 720;
+			    playbackrect.style.width = playback_value + 'px';
+			});
+
+			document.getElementById('mp3pbnya').addEventListener('input', () => {
+	    		    currentAudionya.currentTime = mp3pbnya.value;
+			    playback_value = currentAudionya.currentTime/currentAudionya.duration * 720;
+			    playbackrect.style.width = playback_value + 'px';
+			});
+
+			currentAudionya = audio;
+			audioplaynya = true;
+
+			if ('mediaSession' in navigator) {
+			    console.log("mediasession supported nya!");
+			    navigator.mediaSession.metadata = new MediaMetadata({
+				title: `Now playing: ${mp3namenomp3}`,
+				artist: 'NekoNya!',
+				artwork: [
+                    		    { src: "https://i.imgur.com/1eAS9qG.png", sizes: '96x96', type: 'image/png' },
+                    		    { src: "https://i.imgur.com/1eAS9qG.png", sizes: '128x128', type: 'image/png' },
+                    		    { src: "https://i.imgur.com/1eAS9qG.png", sizes: '192x192', type: 'image/png' },
+                		]
+			    });
+			} else {
+			    console.log("Media Session API not supported on this browser nya~");
+			}
+
+		 	if (!audioContext.state || audioContext.state === 'suspended') {
+			    audioContext.resume();
+			}
+    			source.connect(analyser);
+    			analyser.connect(audioContext.destination);
+			const numBars = 120;
+			let lastTime = 0;
+			const interval = 1000/50;
+
+  			function draw(timestamp) {
+			    if (!audioplaynya) return;
+			    requestAnimationFrame(draw);
+			    const elapsed = timestamp - lastTime;
+			    if (elapsed >= interval) {
+			        lastTime = timestamp - (elapsed % interval);
+   			        analyser.fftSize = 2048;
+   			        const bufferLength = analyser.frequencyBinCount;
+  			        const dataArray = new Float32Array(bufferLength);
+     			        requestAnimationFrame(draw);
+			        canvasContext.clearRect(0,0,canvas.width,canvas.height);
+     		 	        analyser.getFloatFrequencyData(dataArray);
+
+  			        let barHeight;
+				let barWidth;
+  			        let x = 0;
+			        let bhc = 0.8;
+				const centerX = canvas.width / 2;
+				const centerY = canvas.height / 2;
+				const angleStep = (2 * Math.PI) / numBars;
+				const maxBarHeight = 256;
+				const innerRadius = 150 * bsn;
+
+                                for (let i = 0; i < numBars; i++) {
+   		                    barNya = Math.floor(dataArray[i]) + 64 + bhbhnya;
+			            barHeight = (barNya*6*bhc*bsn*shshnya);
+				    if (barHeight < 1) {
+				        barHeight = 1;
+				    }
+				    if (spectrumballz == 0) {
+					barWidth = canvas.width / numBars;
+    			                canvasContext.fillStyle = 'rgb(255,255,255)';
+   			                canvasContext.fillRect(x, (canvas.height - barHeight / 1) - 56, barWidth-1, barHeight / 1);
+   			                x += barWidth + 1;
+				    } else {
+				        const angle = i * angleStep;
+					barWidth = angleStep * 0.8;
+    			                canvasContext.beginPath();
+				        // console.log((Math.floor(dataArray[3] + 64 + bhbhnya) * 6 * bhc * bsn * shshnya));
+
+				        const cstartx = centerX + innerRadius * Math.cos(angle - barWidth / 2);
+				        const cstarty = centerY + innerRadius * Math.sin(angle - barWidth / 2);
+				        const cendx = centerX + (innerRadius + barHeight) * Math.cos(angle - barWidth / 2);
+				        const cendy  = centerY + (innerRadius + barHeight) * Math.sin(angle - barWidth / 2);
+
+				        canvasContext.moveTo(cstartx,cstarty);
+				        canvasContext.lineTo(cendx,cendy);
+				        canvasContext.arc(centerX, centerY, innerRadius + barHeight, angle - barWidth / 2, angle + barWidth/2);
+				        canvasContext.lineTo(cstartx, cstarty);
+
+				        canvasContext.fillStyle = 'white';
+				        canvasContext.fill();
+				        canvasContext.closePath();
+				        canvasContext.save();
+				        canvasContext.translate(centerX + (innerRadius + barHeight + 20) * Math.cos(angle + angleStep / 2), centerY + (innerRadius + barHeight + 20) * Math.sin(angle + angleStep / 2));
+
+				        canvasContext.rotate(angle + angleStep / 2);
+				        canvasContext.fillStyle = 'black';
+				        canvasContext.restore();
+				    }
+				}
+
+				if (dynadyna) {
+				    dynabar = Math.floor(dataArray[2])+64; // originally its dataArray[2]
+				    if (dynabar < 0) {dynabar = 1;}
+				    fdyna = 100 + (dynabar / 2);
+				    fsdyna = -1 * (dynabar / 4);
+				    ffdyna = `${fdyna}%`;
+				    ffsdyna = `${fsdyna}%`;
+				    videoCon.style.width = ffdyna;
+				    videoCon.style.left = ffsdyna;
+				} else {
+				    videoCon.style.width = '100%';
+				    videoCon.style.left = '0%';
+				}
+			    }
+			}
+                
+                        // Play the clicked audio
+                        if (audio.paused) {
+                            audio.play();
+			    draw();
+                        } else {
+                	    audio.pause();
+			    audioplaynya = false;
+			    refreshCanvas();
+                        }
+		    });
+		    document.querySelector('.audiocolumn').appendChild(audioContainer);
+                };
+		mp3read.readAsDataURL(file);
+	        console.log(file);
+
+            } else {
+                console.log("No file was selected nya~");
+            }
+        });
+
+        // Click handlers for pre-defined images
+	function setBackgroundImage(imageUrl) {
+    	    videoCon.style.backgroundImage = 'block';
+
+ 	    const existingVideos = document.querySelectorAll('.video-background');
+	    existingVideos.forEach(video => video.remove());
+
+  	    videoCon.style.backgroundImage = `url('${imageUrl}')`;
+  	    videoCon.style.backgroundSize = 'cover';
+  	    videoCon.style.backgroundPosition = 'center';
+	}
+
+	// Function to set a video as background
+	function setBackgroundVideo(videoUrl) {
+	   // Remove existing images
+ 	   videoCon.style.backgroundImage = 'none';
+
+	   // Remove existing videos
+	   const existingVideos = document.querySelectorAll('.video-background');
+ 	   existingVideos.forEach(video => video.remove());
+
+ 	   // Create new video element
+ 	   const video = document.createElement('video');
+ 	   video.src = videoUrl;
+	   video.classList.add('video-background');
+ 	   video.autoplay = true;
+	   video.loop = true;
+	   video.muted = true; // Mute for autoplay
+	   video.style.position = 'absolute';
+ 	   video.style.top = '0';
+ 	   video.style.left = '0';
+	   video.style.width = '100%';
+ 	   video.style.height = '100%';
+ 	   video.style.objectFit = 'cover';
+  	   video.style.zIndex = '-1'; // Ensure it's behind other content
+
+   	   // Append video to body
+   	   videoCon.appendChild(video);
+	}
+ 
+
+	document.getElementById('image1').addEventListener('click', function() {
+  	    setBackgroundImage("https://www.dropbox.com/scl/fi/gc5i97u6elgnoawqyyovt/karenina-theme-poster.png?rlkey=6siwpdh6i0s1v20rr3i6ti2tb&st=kmhwr7y3&raw=1");
+	});
+	document.getElementById('image2').addEventListener('click', function() {
+	      setBackgroundImage("https://www.dropbox.com/scl/fi/c9qu383104h4mm1mbrsdf/karenina-magificent.png?rlkey=hkznbhrdfjnw9n65l1i6b5e9k&st=tisgq718&raw=1");
+	});
+	document.getElementById('video3').addEventListener('click', function() {
+	      setBackgroundVideo("https://www.dropbox.com/scl/fi/4jk20yx8u5pl7ljojgmrd/mylivewallpapers.com-Karenina-Idol-Skin-4K.mp4?rlkey=zorvio80161nsjwsezcxj22ng&st=tn2fcldv&raw=1");
+	});
+	document.getElementById('video4').addEventListener('click', function() {
+	      setBackgroundVideo("https://www.dropbox.com/scl/fi/gazb0asmv9a298kfbpj40/mylivewallpapers.com-Karenina-PGR-4K.mp4?rlkey=j7wtv46u2imzte2pyou5zr3by&st=qp7sut3b&raw=1");
+        });
+	document.getElementById('video5').addEventListener('click', function() {
+	      setBackgroundVideo("https://www.dropbox.com/scl/fi/ovh8mdyr40o35y562w205/mylivewallpapers-com-Singer-Karenina-FHD.mp4?rlkey=hhis9jyr1b07j8u9f23bbtxyt&st=0ae2ltzd&raw=1");
+	});
+	document.getElementById('video6').addEventListener('click', function() {
+	      setBackgroundVideo("https://www.dropbox.com/scl/fi/1fe9i8x5j54f8iidzb5m4/blackrockshooter.mp4?rlkey=txgvhtz4xznzwmxs1xkl5ua4v&st=5sadjvj7&raw=1");
+	});
+	document.getElementById('image7').addEventListener('click', function() {
+	      setBackgroundImage("https://www.dropbox.com/scl/fi/ul9gundlvducrdwfd6x4b/nanopostle.jpg?rlkey=at6wz7kpfu0vduimsu1w4sbwd&st=0kh51na9&raw=1");
+	});
+	document.getElementById('image8').addEventListener('click', function() {
+	      setBackgroundImage("https://www.dropbox.com/scl/fi/5ki99sl4tc8lp88hkd052/nanonya.png?rlkey=96d2ih3dkykjkcnd2t3lcodae&st=t4xr0cv7&raw=1");
+	});
+	document.getElementById('image9').addEventListener('click', function() {
+	      setBackgroundImage("C:/Users/wkchi/Downloads/brsbrsbrs.png");
+	});
+	document.getElementById('image10').addEventListener('click', function() {
+	      setBackgroundImage("https://www.dropbox.com/scl/fi/oxob3mpboig7f0uxersoi/1321ec0a11195fe4321f7baad2e38f46382651856.png?rlkey=a39u3yld64n820esq2anv60wk&st=yh2acexy&raw=1");
+	});
+    </script>
+</body>
+</html>
