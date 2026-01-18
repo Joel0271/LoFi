@@ -60,6 +60,10 @@ header {
   z-index: 10;
 }
 
+.social-links a {
+  text-decoration: none;
+}
+
 .social-links img {
   width: 26px;
   height: 26px;
@@ -360,20 +364,31 @@ mmgEl.addEventListener("click", () => {
 
 const twitterLink = document.getElementById("twitlink");
 twitterLink.addEventListener("click", () => {
-  audio.currentTime = 0;
-  audio.play().catch(err => console.log("Audio playback failed:", err));
+  mmgaudio.currentTime = 0;
+  mmgaudio.play().catch(err => console.log("Audio playback failed:", err));
 });
 
 const instaLink = document.getElementById("instlink");
 instaLink.addEventListener("click", () => {
-  audio.currentTime = 0;
-  audio.play().catch(err => console.log("Audio playback failed:", err));
+  mmgaudio.currentTime = 0;
+  mmgaudio.play().catch(err => console.log("Audio playback failed:", err));
 });
 
 const youtubeLink = document.getElementById("ytlink");
 youtubeLink.addEventListener("click", () => {
-  audio.currentTime = 0;
-  audio.play().catch(err => console.log("Audio playback failed:", err));
+  mmgaudio.currentTime = 0;
+  mmgaudio.play().catch(err => console.log("Audio playback failed:", err));
+});
+
+const karentLink = document.getElementById("karent-link");
+karentLink.addEventListener("click", () => {
+  mmgaudio.currentTime = 0;
+  mmgaudio.play().catch(err => console.log("Audio playback failed:", err));
+});
+const facebookLink = document.getElementById("facebook-link");
+facebookLink.addEventListener("click", () => {
+  mmgaudio.currentTime = 0;
+  mmgaudio.play().catch(err => console.log("Audio playback failed:", err));
 });
 
 const els = {
@@ -418,5 +433,6 @@ if (localStorage.getItem("theme") === "light") {
 </script>
 </body>
 </html>
+
 
 
