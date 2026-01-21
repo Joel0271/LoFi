@@ -180,6 +180,22 @@ nav a:hover {
   border-color: #5bc0ff;
 }
 
+#mikuoverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+#mikuoverlay video {
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
+}
+
 /* Mobile menu */
 .mobile-menu {
   position: absolute;
@@ -463,6 +479,7 @@ if (localStorage.getItem("theme") === "light") {
 </script>
 </body>
 </html>
+
 
 
 
