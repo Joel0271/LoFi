@@ -397,7 +397,10 @@ mmgEl.addEventListener("click", () => {
   });
   // Optional: add a quick visual feedback
   mmgEl.style.transform = "scale(1.1)";
-  if (mikuoverly.firstChild) return;
+  const exist = mikuoverly.querySelection("video");
+  if (exist) {
+    exist.remove();
+  }
   const mkgovideo = document.createElement("video");
   mkgovideo.src = "assets/ARUOKREADYGO.webm";
   mkgovideo.autoplay = true;
@@ -481,6 +484,7 @@ if (localStorage.getItem("theme") === "light") {
 </script>
 </body>
 </html>
+
 
 
 
