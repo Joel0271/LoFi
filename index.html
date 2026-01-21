@@ -322,6 +322,8 @@ nav a:hover {
     <button class="menu-button" onclick="toggleMenu()">☰</button>
   </div>
 
+  <div id="mikuOverlay"></div>
+
   <div class="mobile-menu" id="mobileMenu">
     <a href="#">Home</a>
     <a href="visualiser.html">Song List</a>
@@ -367,6 +369,8 @@ const mmg = "assets/miku321.wav";
 const mmgaudio = new Audio(mmg);
 const mmgEl = document.getElementById("mikumikugo");
 
+const mikuoverly = document.getElementById("mikuOverlay");
+
 // Play audio on click
 mmgEl.addEventListener("click", () => {
   mmgaudio.currentTime = 0; // rewind in case it's already played
@@ -375,6 +379,16 @@ mmgEl.addEventListener("click", () => {
   });
   // Optional: add a quick visual feedback
   mmgEl.style.transform = "scale(1.1)";
+  if (mikuoverly.firstChild) return;
+  const mkgovideo = document.createElement("video");
+  mkgovideo.src = "assets/ARUOKREADYGO.webm";
+  mkgovideo.autoplay = true;
+  mkgovideo.muted = true;
+  mkgovideo.playsInLine = true;
+  mkgovideo.addEventListener("ended", () => {
+    mkgovideo.remove();
+  });
+  mikuoverly.appendChild(mkgovideo);
   setTimeout(() => mmgEl.style.transform = "scale(1)", 150);
 });
 
@@ -449,6 +463,7 @@ if (localStorage.getItem("theme") === "light") {
 </script>
 </body>
 </html>
+
 
 
 
