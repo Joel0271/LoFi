@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image to PDF Converter</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 15px;
+        }
+
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 140px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .preview-item img {
+            max-width: 100%;
+            max-height: 100px;
+            object-fit: contain;
+            margin-bottom: 5px;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>🖼️ Images to PDF</h2>
+
+<input type="file" id="imageInput" multiple accept="image/png, image/jpeg, image/jpg, image/webp">
+
+<div class="controls">
+    <label>
+        PDF File Name:
+        <input type="text" id="pdfName" value="my-images.pdf">
+    </label>
+</div>
+
+<div class="preview-container" id="preview"></div>
+
+<button onclick="generatePDF()">📄 Download PDF</button>
+
+<script>
+    const imageInput = document.getElementById("imageInput");
+    const preview = document.getElementById("preview");
+
+    let images = [];
+
+    imageInput.addEventListener("change", () => {
+        images = Array.from(imageInput.files);
+        preview.innerHTML = "";
+
+        images.forEach((file, index) => {
+            const reader = new FileReader();
+            reader.onload = e => {
+                const div = document.createElement("div");
+                div.className = "preview-item";
+
+                div.innerHTML = `
+                    <img src="${e.target.result}">
+                    <div>${file.name}</div>
+                `;
+
+                preview.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        });
+    });
+
+    async function generatePDF() {
+        if (images.length === 0) {
+            alert("Please select at least one image.");
+            return;
+        }
+
+        const { jsPDF } = window.jspdf;
+        const pdf = new jsPDF();
+
+        for (let i = 0; i < images.length; i++) {
+            const imgData = await readFile(images[i]);
+            const img = new Image();
+            img.src = imgData;
+
+            await new Promise(resolve => img.onload = resolve);
+
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+
+            const ratio = Math.min(
+                pageWidth / img.width,
+                pageHeight / img.height
+            );
+
+            const imgWidth = img.width * ratio;
+            const imgHeight = img.height * ratio;
+
+            const x = (pageWidth - imgWidth) / 2;
+            const y = (pageHeight - imgHeight) / 2;
+
+            if (i > 0) pdf.addPage();
+            pdf.addImage(img, "JPEG", x, y, imgWidth, imgHeight);
+        }
+
+        let filename = document.getElementById("pdfName").value.trim();
+        if (!filename.endsWith(".pdf")) filename += ".pdf";
+
+        pdf.save(filename);
+    }
+
+    function readFile(file) {
+        return new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result);
+            reader.readAsDataURL(file);
+        });
+    }
+</script>
+
+</body>
+</html>
