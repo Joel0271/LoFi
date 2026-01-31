@@ -43,7 +43,11 @@ body::before {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-image: url("assets/mcnostalgia.png");
+  background-image:
+    image-set(
+      url("assets/mcnostalgia.webp") type("image/webp"),
+      url("assets/mcnostalgia.png") type("image/png")
+    );
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -484,6 +488,7 @@ if (localStorage.getItem("theme") === "light") {
 </script>
 </body>
 </html>
+
 
 
 
