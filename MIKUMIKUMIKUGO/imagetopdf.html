@@ -1,141 +1,144 @@
+<style>
+  .imagetopdf-page {
+    font-family: Arial, sans-serif;
+    max-width: 900px;
+    margin: 40px auto;
+  }
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 40px auto;
-        }
+  .imagetopdf-page h2 {
+    margin-bottom: 10px;
+  }
 
-        h2 {
-            margin-bottom: 10px;
-        }
+  .imagetopdf-page input[type="file"] {
+    margin-bottom: 15px;
+  }
 
-        input[type="file"] {
-            margin-bottom: 15px;
-        }
+  .imagetopdf-page .preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+  }
 
-        .preview-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-        }
+  .imagetopdf-page .preview-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 140px;
+    text-align: center;
+    font-size: 12px;
+  }
 
-        .preview-item {
-            border: 1px solid #ccc;
-            padding: 10px;
-            width: 140px;
-            text-align: center;
-            font-size: 12px;
-        }
+  .imagetopdf-page .preview-item img {
+    max-width: 100%;
+    max-height: 100px;
+    object-fit: contain;
+    margin-bottom: 5px;
+  }
 
-        .preview-item img {
-            max-width: 100%;
-            max-height: 100px;
-            object-fit: contain;
-            margin-bottom: 5px;
-        }
+  .imagetopdf-page .controls {
+    margin-top: 20px;
+  }
 
-        .controls {
-            margin-top: 20px;
-        }
+  .imagetopdf-page .slider-container {
+    margin-top: 15px;
+  }
 
-        .slider-container {
-            margin-top: 15px;
-        }
+  .imagetopdf-page button {
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+</style>
 
-        button {
-            padding: 10px 15px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-    </style>
-</head>
-<body>
+<div class="imagetopdf-page">
+  <h2>🖼️ Images to PDF</h2>
 
-<h2>🖼️ Images to PDF</h2>
+  <input
+    type="file"
+    id="imageInput"
+    multiple
+    accept="image/png, image/jpeg, image/jpg, image/webp"
+  >
 
-<input type="file" id="imageInput" multiple accept="image/png, image/jpeg, image/jpg, image/webp">
-
-<div class="controls">
+  <div class="controls">
     <label>
-        PDF File Name:
-        <input type="text" id="pdfName" value="my-images.pdf">
+      PDF File Name:
+      <input type="text" id="pdfName" value="my-images.pdf">
     </label>
 
     <div class="slider-container">
-        <label>
-            Image Quality:
-            <strong><span id="qualityValue">0.8</span></strong>
-        </label>
-        <input
-            type="range"
-            id="qualitySlider"
-            min="0.2"
-            max="1"
-            step="0.1"
-            value="0.8"
-        >
-        <div style="font-size: 12px; color: #555;">
-            Lower = smaller file size • Higher = better quality
-        </div>
+      <label>
+        Image Quality:
+        <strong><span id="qualityValue">0.8</span></strong>
+      </label>
+      <input
+        type="range"
+        id="qualitySlider"
+        min="0.2"
+        max="1"
+        step="0.1"
+        value="0.8"
+      >
+      <div style="font-size: 12px; color: #555;">
+        Lower = smaller file size • Higher = better quality
+      </div>
     </div>
+  </div>
+
+  <div class="preview-container" id="preview"></div>
+
+  <button id="generatePdfBtn">📄 Download PDF</button>
 </div>
 
-<div class="preview-container" id="preview"></div>
-
-<button onclick="generatePDF()">📄 Download PDF</button>
-
 <script>
+  (() => {
     const imageInput = document.getElementById("imageInput");
     const preview = document.getElementById("preview");
     const qualitySlider = document.getElementById("qualitySlider");
     const qualityValue = document.getElementById("qualityValue");
+    const generateBtn = document.getElementById("generatePdfBtn");
 
     let images = [];
 
     qualitySlider.addEventListener("input", () => {
-        qualityValue.textContent = qualitySlider.value;
+      qualityValue.textContent = qualitySlider.value;
     });
 
     imageInput.addEventListener("change", () => {
-        images = Array.from(imageInput.files);
-        preview.innerHTML = "";
+      images = Array.from(imageInput.files);
+      preview.innerHTML = "";
 
-        images.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = e => {
-                const div = document.createElement("div");
-                div.className = "preview-item";
-
-                div.innerHTML = `
-                    <img src="${e.target.result}">
-                    <div>${file.name}</div>
-                `;
-
-                preview.appendChild(div);
-            };
-            reader.readAsDataURL(file);
-        });
+      images.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = e => {
+          const div = document.createElement("div");
+          div.className = "preview-item";
+          div.innerHTML = `
+            <img src="${e.target.result}">
+            <div>${file.name}</div>
+          `;
+          preview.appendChild(div);
+        };
+        reader.readAsDataURL(file);
+      });
     });
 
-async function generatePDF() {
-    if (images.length === 0) {
+    generateBtn.addEventListener("click", async () => {
+      if (images.length === 0) {
         alert("Please select at least one image.");
         return;
-    }
+      }
 
-    const quality = parseFloat(document.getElementById("qualitySlider").value);
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF();
+      const quality = parseFloat(qualitySlider.value);
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
 
-    for (let i = 0; i < images.length; i++) {
+      for (let i = 0; i < images.length; i++) {
         const imgData = await readFile(images[i]);
         const img = new Image();
         img.src = imgData;
         await new Promise(resolve => img.onload = resolve);
 
-        // --- CANVAS COMPRESSION ---
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
 
@@ -149,8 +152,8 @@ async function generatePDF() {
         const pageHeight = pdf.internal.pageSize.getHeight();
 
         const ratio = Math.min(
-            pageWidth / img.width,
-            pageHeight / img.height
+          pageWidth / img.width,
+          pageHeight / img.height
         );
 
         const imgWidth = img.width * ratio;
@@ -160,19 +163,19 @@ async function generatePDF() {
 
         if (i > 0) pdf.addPage();
         pdf.addImage(compressedData, "JPEG", x, y, imgWidth, imgHeight);
-    }
+      }
 
-    let filename = document.getElementById("pdfName").value.trim();
-    if (!filename.endsWith(".pdf")) filename += ".pdf";
-
-    pdf.save(filename);
-}
+      let filename = document.getElementById("pdfName").value.trim();
+      if (!filename.endsWith(".pdf")) filename += ".pdf";
+      pdf.save(filename);
+    });
 
     function readFile(file) {
-        return new Promise(resolve => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result);
-            reader.readAsDataURL(file);
-        });
+      return new Promise(resolve => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.readAsDataURL(file);
+      });
     }
+  })();
 </script>
